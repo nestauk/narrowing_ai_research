@@ -1,0 +1,4 @@
+webscrapes:
+  dm_url: 'https://deepmind.com/api/search/?content_type=research&filters=%7B%22collection%22:%5B%22Publications%22%5D%7D&page={t}&pagelen=21&q=&sort=relevance'
+  n_pages: 40
+  oai_url: "https://openai.com/papers/"
