@@ -2,3 +2,15 @@ webscrapes:
   dm_url: 'https://deepmind.com/api/search/?content_type=research&filters=%7B%22collection%22:%5B%22Publications%22%5D%7D&page={t}&pagelen=21&q=&sort=relevance'
   n_pages: 40
   oai_url: "https://openai.com/papers/"
+input_files:
+  data/raw:
+    - 25215857 # article vectors
+    - 25215851 # article vectors data dict
+    - 25215668 # arxiv article categories
+    - 25215671 # arxiv article categories data dict
+    - 25214408 # arxiv articles
+    - 25215617 # arxiv articles data dict
+    - 25215725 # arxiv grid matches data dict
+    - 25215743 # arxiv grid matches
+    - 13139873 # arxiv category lookup
+  models/topsbm: [25237250]
