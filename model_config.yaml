@@ -11,6 +11,6 @@ input_files:
     - 25214408 # arxiv articles
     - 25215617 # arxiv articles data dict
     - 25215725 # arxiv grid matches data dict
-    - 25215743 # arxiv grid matches
+    - 25237247 # arxiv grid matches
     - 25237196 # arxiv category lookup
   models/topsbm: [25237250]

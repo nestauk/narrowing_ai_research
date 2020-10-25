@@ -1,3 +1,4 @@
+import os
 import yaml
 import requests
 import json
@@ -12,49 +13,58 @@ project_dir = narrowing_ai_research.project_dir
 with open(project_dir / "model_config.yaml", "rt") as f:
     config = yaml.safe_load(f.read())["webscrapes"]
 
-logging.info("Scraping deepmind publications")
+def webscraping():
+    if os.path.exists(f"{project_dir}/data/raw/scraped_arxiv.json")==True:
+        logging.info("Already collected data")
 
-# Collect the DeepMind arXiv papers
+    else:
+        logging.info("Scraping deepmind publications")
 
-DM_URL = config["dm_url"]
-DM_PAGES = config["n_pages"]
+        # Collect the DeepMind arXiv papers
 
-dm_arx = []
+        DM_URL = config["dm_url"]
+        DM_PAGES = config["n_pages"]
 
-for p in range(1, DM_PAGES):
+        dm_arx = []
 
-    sleep(2)
+        for p in range(1, DM_PAGES):
 
-    dm_page = requests.get(DM_URL.format(t=p))
-    content = (dm_page.content).decode()
-    parsed = json.loads(content[6:])
+            sleep(2)
 
-    for r in parsed["results"]:
-        if "download" in r.keys():
-            url = r["download"]
-            if "arxiv" in str(url):
-                # Change links to pdfs to links to abstracts
-                if url[-4:] == ".pdf":  # Removes pdf format
-                    url = url[:-4]
-                url = re.sub("pdf", "abs", url)
-                dm_arx.append(url)
+            dm_page = requests.get(DM_URL.format(t=p))
+            content = (dm_page.content).decode()
+            parsed = json.loads(content[6:])
 
-# Collect OpenAI papers
-logging.info("Scraping openai publications")
+            for r in parsed["results"]:
+                if "download" in r.keys():
+                    url = r["download"]
+                    if "arxiv" in str(url):
+                        # Change links to pdfs to links to abstracts
+                        if url[-4:] == ".pdf":  # Removes pdf format
+                            url = url[:-4]
+                        url = re.sub("pdf", "abs", url)
+                        dm_arx.append(url)
 
-oai_url = config["oai_url"]
+        # Collect OpenAI papers
+        logging.info("Scraping openai publications")
 
-# Download and parse the data
-oai = BeautifulSoup(requests.get(oai_url).content)
+        oai_url = config["oai_url"]
 
-# Unique links in the page that contain arXiv
-oai_arx = set([x for x in [x.get("href") for x in oai.find_all("a")] if "arxiv" in x])
+        # Download and parse the data
+        oai = BeautifulSoup(requests.get(oai_url).content)
 
-# Conclude
-dm_lu = {x: "DeepMind" for x in dm_arx}
-oai_lu = {x: "OpenAI" for x in oai_arx}
+        # Unique links in the page that contain arXiv
+        oai_arx = set([x for x in [x.get("href") for x in oai.find_all("a")] if "arxiv" in x])
 
-combined = {**dm_lu, **oai_lu}
+        # Conclude
+        dm_lu = {x: "DeepMind" for x in dm_arx}
+        oai_lu = {x: "OpenAI" for x in oai_arx}
 
-with open(f"{project_dir}/data/raw/scraped_arxiv.json", "w") as outfile:
-    json.dump(combined, outfile)
+        combined = {**dm_lu, **oai_lu}
+
+        with open(f"{project_dir}/data/raw/scraped_arxiv.json", "w") as outfile:
+            json.dump(combined, outfile)
+
+if __name__=='__main__':
+
+    webscraping()

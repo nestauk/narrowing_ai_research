@@ -13,37 +13,43 @@ with open(f"{project_dir}/model_config.yaml", "r") as infile:
 
 ENDPOINT_URL = "https://api.figshare.com/v2/file/download/"
 
-# For each destination in figshare
-for k,v in materials.items():
 
-    target_path = os.path.join(project_dir, k)
-    
-    print(target_path)
+def fetch_figshare():
+    # For each destination in figshare
+    for k,v in materials.items():
 
-    for f in v:
-        logging.info(f)
+        target_path = os.path.join(project_dir, k)
+        
+        print(target_path)
 
-        file_link = ENDPOINT_URL + str(f)
+        for f in v:
+            logging.info(f)
 
-        # Extract the filename to check if it's zipped or not
-        h = urllib.request.urlopen(file_link)
-        filename = h.headers.get_filename()
+            file_link = ENDPOINT_URL + str(f)
 
-        if re.sub('.zip','',filename) in os.listdir(target_path):
-            logging.info(f"already collected {f}")
-            continue
+            # Extract the filename to check if it's zipped or not
+            h = urllib.request.urlopen(file_link)
+            filename = h.headers.get_filename()
 
-        # If it is zipped we download the data and extract it
-        if "zip" in filename:
-            logging.info(f"retrieving {str(f)}")
+            if re.sub('.zip','',filename) in os.listdir(target_path):
+                logging.info(f"already collected {f}")
+                continue
 
-            temp, h = urllib.request.urlretrieve(file_link)
+            # If it is zipped we download the data and extract it
+            if "zip" in filename:
+                logging.info(f"retrieving {str(f)}")
 
-            logging.info(f"extracting {str(f)}")
-            with ZipFile(temp, "r") as infile:
-                infile.extractall(target_path)
-        else:
-            # If it isn't zipped we retrieve and save the data directly
-            logging.info(f"retrieving and saving {str(f)}")
-            urllib.request.urlretrieve(file_link, os.path.join(target_path, 
-                                                               filename))
+                temp, h = urllib.request.urlretrieve(file_link)
+
+                logging.info(f"extracting {str(f)}")
+                with ZipFile(temp, "r") as infile:
+                    infile.extractall(target_path)
+            else:
+                # If it isn't zipped we retrieve and save the data directly
+                logging.info(f"retrieving and saving {str(f)}")
+                urllib.request.urlretrieve(file_link, os.path.join(target_path, 
+                                                                   filename))
+
+if __name__ == '__main__':
+    fetch_figshare()
+
