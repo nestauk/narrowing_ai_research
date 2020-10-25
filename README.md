@@ -13,7 +13,7 @@ Run `conda install -c conda-forge graph-tool` to install `graph-tool`.
 
 ### Fetch data
 
-Run `make data`.
+Run `make fetch`.
 
 This fetches data from the following sources:
 
