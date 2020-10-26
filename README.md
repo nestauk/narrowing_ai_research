@@ -1,7 +1,7 @@
 A Narrowing of AI research?
 ==============================
 
-Code for the Narrowing of AI research paper ((arXiv link)[https://arxiv.org/abs/2009.10385])
+Code for the Narrowing of AI research paper ([https://arxiv.org/abs/2009.10385](arXiv link))
 
 ## Setup
 
