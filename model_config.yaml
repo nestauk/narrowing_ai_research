@@ -11,6 +11,15 @@ input_files:
     - 25214408 # arxiv articles
     - 25215617 # arxiv articles data dict
     - 25215725 # arxiv grid matches data dict
-    - 25237247 # arxiv grid matches
+    - 25316801 # arxiv grid matches
     - 25237196 # arxiv category lookup
   models/topsbm: [25237250]
+min_count: 700
+topic_filter:
+  presence_threshold: 0
+  prevalence_threshold: 0.1
+expansion_dict:
+  cs.AI: 2
+  cs.NE: 2
+  cs.LG: 1
+  stat.ML: 1

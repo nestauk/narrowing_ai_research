@@ -30,6 +30,7 @@ dependencies:
     - git+ssh://git@github.com/nestauk/nesta.git
     - python-louvain
     - altair-saver
+    - webdriver_manager
     
     # Tooling requirements (don't edit)
     - tornado>=5.0  # Required to stop luigi from breaking jupyter
