@@ -12,6 +12,7 @@ from narrowing_ai_research.utils.list_utils import flatten_freq
 
 project_dir = narrowing_ai_research.project_dir
 
+
 def get_salient_terms(
     text, category, cat_set, corpus_cat, cat_df, occurrences=1000, number=20
 ):
@@ -57,6 +58,7 @@ def get_salient_terms(
 
     return category_norm
 
+
 def count_terms(arx_df, paper_ids, terms):
     """Count terms occurrences in the AI corpus
     Args:
@@ -71,6 +73,7 @@ def count_terms(arx_df, paper_ids, terms):
     }
 
     return terms_n
+
 
 def get_expanded_vocabulary(
     text,
@@ -111,6 +114,7 @@ def get_expanded_vocabulary(
         + list(sal.index)  # Plus the salient terms
     )
     return expanded
+
 
 def get_expanded_papers(
     arx,
@@ -173,9 +177,10 @@ def get_expanded_papers(
     # Returns both the ids and the term counts
     return (sel_ids, [in_terms, out_terms])
 
+
 def find_ai_papers():
 
-    if os.path.exists(f"{project_dir}/data/interim/find_ai_outputs.p") is True:
+    if os.path.exists(f"{project_dir}/data/interim/ai_vocabularies.json") is True:
         logging.info("Already found AI papers")
     else:
         # This dict contains values to expand search in different categories
@@ -238,7 +243,7 @@ def find_ai_papers():
             ev = get_expanded_vocabulary(text, cat_sets, cats, cat, corp, w2v)
             logging.info(ev)
 
-            ev_terms_dict[cat] = ev
+            ev_terms_dict[cat] = list(ev)
 
             logging.info("Extracting papers")
             ep = get_expanded_papers(
@@ -260,6 +265,7 @@ def find_ai_papers():
 
         with open(f"{project_dir}/data/interim/ai_vocabularies.json", "w") as outfile:
             json.dump(ev_terms_dict, outfile)
+
 
 if __name__ == "__main__":
     find_ai_papers()

@@ -31,22 +31,25 @@ The model is stored in `models/topsbm`
 
 ## Processing data
 
+Run `make data`
+
 This:
 
 * Cleans the fetched data
   * Create dates etc
   * Adds DeepMind and OpenAI labels to relevant papers
 * Trains a `word2vec` model on the abstracts
-* Finds the AI papers in the data
+* Finds the AI papers in the data and labels relevant datasets with an AI dummy
+* Extracts topics form the topic model trained offline and removes generic and uninformative topics
 
 All data outputs are stored in `data/processed`
+To save space, processed files in `data/raw` are removed.
 
 ### Analysing the data
 
 This reproduces the analysis and charts in the paper. 
 
 All charts and tables are stored as pngs and htmls in the `reports/figures` folder.
-
 
 --------
 

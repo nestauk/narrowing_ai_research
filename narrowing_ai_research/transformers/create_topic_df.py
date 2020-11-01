@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 import joblib
-import numpy as np
 import narrowing_ai_research
 from narrowing_ai_research.hSBM_Topicmodel.sbmtm import sbmtm
+
 import logging
 import yaml
 
@@ -14,6 +14,7 @@ with open(f"{project_dir}/model_config.yaml", "r") as infile:
     filter_pars = yaml.safe_load(infile)["topic_filter"]
     pres = filter_pars["presence_threshold"]
     prev = filter_pars["prevalence_threshold"]
+
 
 def post_process_model(model, top_level):
     """Function to post-process the outputs of a hierarchical topic model
@@ -31,8 +32,7 @@ def post_process_model(model, top_level):
 
     # Create tidier names
     topic_name_lookup = {
-        key: "_".join([x[0] for x in values[:5]]) 
-        for key, values in word_mix.items()
+        key: "_".join([x[0] for x in values[:5]]) for key, values in word_mix.items()
     }
     topic_names = list(topic_name_lookup.values())
 
@@ -56,6 +56,7 @@ def filter_topics(topic_df, presence_thr, prevalence_thr):
         Filtered df
     """
     # Remove highly uninformative / generic topics
+
     topic_prevalence = (
         topic_df.iloc[:, 1:]
         .applymap(lambda x: x > presence_thr)
@@ -63,8 +64,7 @@ def filter_topics(topic_df, presence_thr, prevalence_thr):
         .sort_values(ascending=False)
     )
     # Filter topics
-    filter_topics = topic_prevalence.index[
-                    topic_prevalence > prevalence_thr].tolist()
+    filter_topics = topic_prevalence.index[topic_prevalence > prevalence_thr].tolist()
 
     # We also remove short topics (with less than two ngrams)
     filter_topics = filter_topics + [
@@ -75,11 +75,9 @@ def filter_topics(topic_df, presence_thr, prevalence_thr):
 
     return topic_df_filt, filter_topics
 
-if __name__ == "__main__":
-
-    if os.path.exists("{project_dir}/data/raw/ai_topic_mix.csv") is True:
+def create_topic_df():
+    if os.path.exists(f"{project_dir}/data/processed/ai_topic_mix.csv") is True:
         logging.info("Already created topic df")
-
     else:
         logging.info("loading data")
         m = joblib.load(f"{project_dir}/models/topsbm/ai_topsbm.pkl")
@@ -89,7 +87,13 @@ if __name__ == "__main__":
         logging.info("Filtering topics")
         filt_df, filt_list = filter_topics(out, pres, prev)
 
-        filt_df.to_csv(f"{project_dir}/data/raw/ai_topic_mix.csv")
+        filt_df.reset_index(drop=False, inplace=True)
+        filt_df.rename(columns={"index": "article_id"}, inplace=True)
 
-        with open(f"{project_dir}/data/raw/filtered_topics.txt", "w") as outfile:
+        filt_df.to_csv(f"{project_dir}/data/processed/ai_topic_mix.csv", index=False)
+
+        with open(f"{project_dir}/data/processed/filtered_topics.txt", "w") as outfile:
             outfile.write(", ".join(filt_list))
+
+if __name__ == "__main__":
+    create_topic_df()
