@@ -7,4 +7,3 @@ fetch_figshare()
 
 logging.info("scraping deepmind and open AI papers")
 webscraping()
-

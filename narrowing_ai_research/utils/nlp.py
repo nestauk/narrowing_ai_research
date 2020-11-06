@@ -25,6 +25,7 @@ regex_str = [
 # Create the tokenizer which will be case insensitive and will ignore space.
 tokens_re = re.compile(r"(" + "|".join(regex_str) + ")", re.VERBOSE | re.IGNORECASE)
 
+
 def tokenize_document(text, remove_stops=False):
     """Preprocess a whole raw document.
     Args:
@@ -37,6 +38,7 @@ def tokenize_document(text, remove_stops=False):
         clean_and_tokenize(sentence, remove_stops)
         for sentence in nltk.sent_tokenize(text)
     ]
+
 
 def clean_and_tokenize(text, remove_stops):
     """Preprocess a raw string/sentence of text.
@@ -80,6 +82,7 @@ def make_ngram(tokenised_corpus, n_gram=2, threshold=10):
         t += 1
     return list(tokenised)
 
+
 def salient_words_per_category(token_df, corpus_freqs, thres, top_words=100):
     """Create a list of salient terms in a sub-corpus (normalised by corpus
     frequency).
@@ -95,8 +98,7 @@ def salient_words_per_category(token_df, corpus_freqs, thres, top_words=100):
     # Create subcorpus frequencies
     subcorpus_freqs = flatten_freq(token_df)
     # Merge with corpus freqs
-    merged = pd.concat([pd.DataFrame(subcorpus_freqs), corpus_freqs], 
-                       axis=1, sort=True)
+    merged = pd.concat([pd.DataFrame(subcorpus_freqs), corpus_freqs], axis=1, sort=True)
     # Normalise
     merged["salience"] = merged.iloc[:, 0] / merged.iloc[:, 1]
     # Filter

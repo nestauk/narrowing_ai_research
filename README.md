@@ -47,9 +47,17 @@ To save space, processed files in `data/raw` are removed.
 
 ### Analysing the data
 
-This reproduces the analysis and charts in the paper. 
+Run `make paper`
 
-All charts and tables are stored as pngs and htmls in the `reports/figures` folder.
+This:
+* Reproduces all results in the paper including
+  * Figures (in html and png) (in `reports/figures`)
+  * Tables (in LaTeX) (in `reports/tables`)
+  * Results (a text file in `reports`)
+* You can also explore the results in the `notebooks/paper` folder.
+
+The above uses the parametres in `paper_config.yaml`. Change for robustness tests etc.
+
 
 --------
 
