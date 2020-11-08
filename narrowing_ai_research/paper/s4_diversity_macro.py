@@ -42,10 +42,7 @@ def read_process_data():
     logging.info("Process dfs")
     papers["year"] = [x.year for x in papers["date"]]
 
-    return (
-        papers,
-        topic_mix
-    )
+    return papers, topic_mix
 
 
 def normalise_diversity_year_df(y_div_df):
@@ -308,7 +305,7 @@ def main():
     papers, topic_mix = read_process_data()
 
     year_ids = (
-        papers.loc[papers["is_ai"] is True]
+        papers.loc[papers["is_ai"] == True]
         .groupby("year")["article_id"]
         .apply(lambda x: set(x))
     )
