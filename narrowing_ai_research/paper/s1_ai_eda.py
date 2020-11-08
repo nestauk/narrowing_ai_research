@@ -16,6 +16,14 @@ from narrowing_ai_research.utils.altair_utils import (
     save_altair,
 )
 
+from narrowing_ai_research.utils.read_utils import (
+    read_papers,
+    read_topic_mix,
+    read_topic_long,
+    read_arxiv_cat_lookup,
+    read_arxiv_categories,
+)
+
 project_dir = narrowing_ai_research.project_dir
 
 with open(f"{project_dir}/paper_config.yaml", "r") as infile:
@@ -24,33 +32,21 @@ with open(f"{project_dir}/paper_config.yaml", "r") as infile:
 # Functions
 def load_process_data():
     """Loads AI paper data for analysis in section 1."""
-    logging.info("Loading data")
-    logging.info("Loading papers")
+    logging.info("Reading data")
 
-    papers = pd.read_csv(
-        f"{project_dir}/data/processed/arxiv_articles.csv",
-        dtype={"article_id": str},
-        parse_dates=["date"],
-        usecols=["article_id", "abstract", "created", "date", "is_ai"],
-    )
+    arxiv_cat_lookup = read_arxiv_cat_lookup()
+    papers = read_papers()
+    topic_long = read_topic_long()
+    topic_mix = read_topic_mix()
+    cats = read_arxiv_categories()
 
-    logging.info("Loading categories")
-    cats = pd.read_csv(
-        f"{project_dir}/data/raw/arxiv_article_categories.csv",
-        dtype={"article_id": str},
-    )
-
-    logging.info("Loading tokenised abstracts")
+    logging.info("Reading tokenised abstracts")
     with open(f"{project_dir}/data/interim/arxiv_tokenised.json", "r") as infile:
         arxiv_tokenised = json.load(infile)
 
-    logging.info("Loading AI labelling outputs")
+    logging.info("Reading AI labelling outputs")
     with open(f"{project_dir}/data/interim/find_ai_outputs.p", "rb") as infile:
         ai_indices, term_counts = pickle.load(infile)
-
-    logging.info("Loading ArXiv category lookup")
-    with open(f"{project_dir}/data/raw/arxiv_category_lookup.json", "r") as infile:
-        arxiv_cat_lookup = json.load(infile)
 
     logging.info("Processing")
     papers["tokenised"] = papers["article_id"].map(arxiv_tokenised)
@@ -76,7 +72,7 @@ def load_process_data():
     return arx, ai_indices, term_counts, arxiv_cat_lookup, cat_sets, cats, ai_cats
 
 
-def make_chart_1(arx, save=True):
+def make_agg_trend(arx, save=True):
     """Makes first plot"""
     # First chart: trends
     ai_bool_lookup = {False: "Other categories", True: "AI"}
@@ -217,7 +213,7 @@ def make_category_distr_time(
     return linech, cat_charts
 
 
-def make_chart_2(linech, save=True):
+def make_cat_trend(linech, save=True, fig_n=2):
     """Makes chart 2"""
 
     ai_subtrends_chart = (
@@ -235,12 +231,14 @@ def make_chart_2(linech, save=True):
     ).facet(alt.Facet("category_clean", title="Category"), columns=2)
 
     if save is True:
-        save_altair(ai_subtrends_chart, "fig_2_ai_subtrends", driver=driv)
+        save_altair(ai_subtrends_chart, f"fig_{fig_n}_ai_subtrends", driver=driv)
 
     return ai_subtrends_chart
 
 
-def make_chart_3(cat_sets, ai_joint, arxiv_cat_lookup, cats_to_plot=20, save=True):
+def make_cat_distr_chart(
+    cat_sets, ai_joint, arxiv_cat_lookup, cats_to_plot=20, save=True, fig_n=3
+):
     """Makes chart 3
     Args:
         cat_sets: df grouping ids by category
@@ -353,7 +351,7 @@ def make_chart_3(cat_sets, ai_joint, arxiv_cat_lookup, cats_to_plot=20, save=Tru
     )
 
     if save is True:
-        save_altair(cat_freqs_hm, "fig_3_arxiv_categories", driv)
+        save_altair(cat_freqs_hm, f"fig_{fig_n}_arxiv_categories", driv)
 
     return cat_freqs_hm
 
@@ -391,7 +389,7 @@ def main():
 
     # Plot chart 1:
     logging.info("Make first plot")
-    plot_1, trends = make_chart_1(arx)
+    plot_1, trends = make_agg_trend(arx)
 
     # Cumulative analysis
     # Get cumulative shares of activity
@@ -407,12 +405,12 @@ def main():
 
     # Get category timecharts
     timecharts, catcharts = make_category_distr_time(
-        ai_indices, arx, cats, cat_sets, False
+        ai_indices, arx, cats, cat_sets, arxiv_cat_lookup, get_examples=False
     )
 
-    plot_2, trends = make_chart_2(timecharts, arxiv_cat_lookup)
+    make_cat_trend(timecharts)
 
-    plot_3 = make_chart_3(cat_sets, ai_joint, arxiv_cat_lookup)
+    plot_3 = make_cat_distr_chart(cat_sets, ai_joint, arxiv_cat_lookup)
 
     with open(f"{project_dir}/reports/results.txt", "w") as outfile:
         for k, v in results.items():

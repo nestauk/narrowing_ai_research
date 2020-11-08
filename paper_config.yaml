@@ -1,0 +1,41 @@
+section_1:
+  years: [2012,2015,2018,2020]
+section_2:
+  topic_thres: 0.1
+  rca_thres: 1.2
+  trends_topic_value: 0.1
+section_4:
+  div_params:
+    balance:
+      - div_metric: hh
+        method: binary
+        threshold: 0.1
+        sample: all
+      - div_metric: hh
+        method: max
+        threshold: 
+        sample: all
+      - div_metric: entropy
+        method: binary
+        threshold: 0.1
+        sample: all
+    weitzman:
+      - distance: cosine
+        sample: all
+      - distance: chebyshev
+        sample: all
+      - distance: jaccard
+        sample: all
+    rao_stirling: 
+      - method: binary
+        distance: cosine
+        threshold: 0.1
+        sample: all
+      - method: binary
+        distance: correlation
+        threshold: 0.1
+        sample: all
+      - method: max
+        distance: cosine
+        threshold:
+        sample: all
