@@ -147,7 +147,7 @@ def make_chart_sector_comparison(results_df, save=True, fig_num=12):
 
 
 # Chart
-def make_chart_sector_boxplot(df, saving=True, fig_num=12):
+def make_chart_sector_boxplot(df, save=True, fig_num=12):
     """Boxplots comparing diversity of companies and academia"""
 
     div_comp_sample = (
@@ -165,7 +165,7 @@ def make_chart_sector_boxplot(df, saving=True, fig_num=12):
         .resolve_scale(y="independent")
     ).properties(height=100, width=100)
 
-    if saving is True:
+    if save is True:
         save_altair(div_comp_sample, f"fig_{fig_num}_div_sect_multiple", driv)
 
     return div_comp_sample
@@ -183,7 +183,7 @@ def main():
     papers, paper_orgs, topic_mix = read_process_data()
 
     diversity_org_type_df = diversity_sector_comparison(
-        paper_orgs, topic_mix, div_params,params['y0']
+        paper_orgs, topic_mix, div_params, params["y0"]
     )
 
     bar_comp = make_chart_sector_comparison(diversity_org_type_df, save=True)

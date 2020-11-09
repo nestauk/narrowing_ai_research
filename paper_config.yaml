@@ -49,8 +49,19 @@ section_5:
     y0: 2019
     y1: 2021
   categories: ['cs.CV','cs.NE','cs.CL','cs.CR','cs.LG','stat.ML','cs.AI']
+section_6:
+  year: 2020
+  threshold: 0.05
 section_7:
+  y0: 2018
   runs: 30
   sample_size: 1000
+section_8:
+  year_threshold: 2015
+  paper_threshold: 75
+  paper_year_threshold: 2018
+  y0: 2018
+  y1: 2020
+
 
 
