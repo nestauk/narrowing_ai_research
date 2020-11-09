@@ -39,3 +39,18 @@ section_4:
         distance: cosine
         threshold:
         sample: all
+section_5:
+  network_1:
+    topic_threshold: 0.1
+    y0: 2013
+    y1: 2017
+  network_2:
+    topic_threshold: 0.1
+    y0: 2019
+    y1: 2021
+  categories: ['cs.CV','cs.NE','cs.CL','cs.CR','cs.LG','stat.ML','cs.AI']
+section_7:
+  runs: 30
+  sample_size: 1000
+
+
