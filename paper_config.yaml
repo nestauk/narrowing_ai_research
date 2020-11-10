@@ -77,6 +77,7 @@ section_9:
     'recurrent_lstm_rnn_recurrent_neural_networks_rnns','swarm_pso_abc_particle_swarm_optimization_metaheuristic',
     'clinical_patients_medical_patient_healthcare',
     'law_society_legal_ethical_stakeholders','infection_pandemic_epidemic_infected_virus']
-
-
-
+section_10:
+  highlights_n: 50
+  period: [2019,2020]
+  activity_thresholds: [100,500,1000]

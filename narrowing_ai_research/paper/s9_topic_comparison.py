@@ -242,9 +242,10 @@ def make_chart_topic_comparison(
         if save is True:
             save_altair(topic_comp_type, "fig_9_topic_comp", driv)
             save_highlights_table(
-                comparison_df_filter, highlight_topics, 
+                comparison_df_filter,
+                highlight_topics,
                 highlight_class_table,
-                topic_category_map
+                topic_category_map,
             )
 
         return topic_comp_type, comparison_df_filter
@@ -312,8 +313,7 @@ def main():
         highlight_topics=labels_to_display,
     )
 
-    save_highlights_table(comp_table, labels_to_display, "Company",
-                          topic_category_map)
+    save_highlights_table(comp_table, labels_to_display, "Company", topic_category_map)
 
 
 if __name__ == "__main__":

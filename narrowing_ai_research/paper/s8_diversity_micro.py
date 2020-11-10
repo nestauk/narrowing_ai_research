@@ -368,5 +368,6 @@ def main():
 
 
 if __name__ == "__main__":
+    pd.options.mode.chained_assignment = None
     driv = altair_visualisation_setup()
     main()
