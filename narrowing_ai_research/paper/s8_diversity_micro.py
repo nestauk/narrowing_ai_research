@@ -24,7 +24,7 @@ import narrowing_ai_research
 
 project_dir = narrowing_ai_research.project_dir
 
-
+pd.options.mode.chained_assignment = None
 alt.data_transformers.disable_max_rows()
 
 

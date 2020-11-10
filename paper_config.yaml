@@ -63,6 +63,20 @@ section_8:
   y0: 2018
   y1: 2020
   google_filter: True 
+section_9:
+  categories: ['cs.AI','cs.CL','cs.CV','cs.LG','cs.NE','stat.ML','cs.CY','cs.IR','cs.CR','cs.DC','cs.RO',
+          'cs.SE']
+  topic_highlights: [
+    'optimizations_gpu_gpus_tensorflow_cpu',
+    'items_recommendation_recommendations_item_recommender_systems','conversion_revenue_ads_click_advertising',
+    'registration_medical_imaging_mri_scans_volumes',
+    'adversarial_adversarial_examples_adversarial_training_adversarial_attacks_adversarial_perturbations',
+    'security_iot_secure_protection_vulnerabilities',
+    'code_source_code_bugs_apis_github','driving_vehicle_vehicles_autonomous_driving_road',
+    'reinforcement_learning_deep_reinforcement_learning_model_free_q_learning_reinforcement_learning_algorithms',
+    'recurrent_lstm_rnn_recurrent_neural_networks_rnns','swarm_pso_abc_particle_swarm_optimization_metaheuristic',
+    'clinical_patients_medical_patient_healthcare',
+    'law_society_legal_ethical_stakeholders','infection_pandemic_epidemic_infected_virus']
 
 
 

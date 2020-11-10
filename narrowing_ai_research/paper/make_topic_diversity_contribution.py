@@ -159,5 +159,6 @@ def main():
         f"{project_dir}/data/processed/diversity_contribution.csv", index=False
     )
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     main()
