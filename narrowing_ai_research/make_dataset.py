@@ -1,20 +1,30 @@
 # -*- coding: utf-8 -*-
 import logging
 from dotenv import find_dotenv, load_dotenv
+
 # Important to import the module
 # This configures logging, file-paths, model config variables
 import narrowing_ai_research
-
+from narrowing_ai_research.transformers.arxiv_tokenise import arxiv_tokenise
+from narrowing_ai_research.transformers.find_ai_papers import find_ai_papers
+from narrowing_ai_research.transformers.create_topic_df import create_topic_df
+from narrowing_ai_research.transformers.process_paper_data import process_paper_data
+from narrowing_ai_research.estimators.train_word2vec import train_word2vec
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
+    """Runs data processing scripts to turn raw data from (../raw) into
+    cleaned data ready to be analyzed (saved in ../processed).
     """
 
-    config = narrowing_ai_research.config
+    # config = narrowing_ai_research.config
+    arxiv_tokenise()
+    train_word2vec()
+    find_ai_papers()
+    create_topic_df()
+    process_paper_data()
 
     return
 

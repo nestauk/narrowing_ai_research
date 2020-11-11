@@ -1,0 +1,9 @@
+ai_expanded_n: 49346
+ai_core_with_duplicates_n: 139543
+ai_core_n: 89496
+ai_new_expanded_n: 26265
+ai_joint: 115761
+Share of papers published before 2012-01-01: 7.000000000000001
+Share of papers published before 2015-01-01: 17.0
+Share of papers published before 2018-01-01: 40.0
+Share of papers published before 2020-01-01: 82.0

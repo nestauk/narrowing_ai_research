@@ -1,0 +1,28 @@
+1 & optimizations gpu gpus tensorflow cpu & cs.DC & Company
+\\ \\
+2 & items recommendation recommendations item recommender systems & cs.IR & Company
+\\ \\
+3 & conversion revenue ads click advertising & cs.IR & Company
+\\ \\
+4 & registration medical imaging mri scans volumes & cs.CV & Academia
+\\ \\
+5 & adversarial adversarial examples adversarial training adversarial attacks adversarial perturbations & cs.CR & Company
+\\ \\
+6 & security iot secure protection vulnerabilities & cs.CR & Academia
+\\ \\
+7 & code source code bugs apis github & cs.SE & Company
+\\ \\
+8 & driving vehicle vehicles autonomous driving road & cs.RO & Academia
+\\ \\
+9 & reinforcement learning deep reinforcement learning model free q learning reinforcement learning algorithms & cs.AI & Company
+\\ \\
+10 & recurrent lstm rnn recurrent neural networks rnns & cs.NE & Company
+\\ \\
+11 & swarm pso abc particle swarm optimization metaheuristic & cs.NE & Academia
+\\ \\
+12 & clinical patients medical patient healthcare & cs.CY & Academia
+\\ \\
+13 & law society legal ethical stakeholders & cs.CY & Academia
+\\ \\
+14 & infection pandemic epidemic infected virus & cs.CY & Academia
+\\ \\
