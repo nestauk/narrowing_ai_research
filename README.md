@@ -17,7 +17,7 @@ Run `make fetch`.
 
 This fetches data from the following sources:
 
-* figshare:
+* figshare [https://figshare.com/account/home#/projects/91427](link to FigShare project):
   * rXiv data (papers, institutions and categories)
   * topics
   * abstract vectors
@@ -56,7 +56,17 @@ This:
   * Results (a text file in `reports`)
 * You can also explore the results in the `notebooks/paper` folder.
 
+The notebooks import functions from scripts in the `narrowing_ai_research/paper` folder.
+
 The above uses the parametres in `paper_config.yaml`. Change for robustness tests etc.
+
+Note that there are two steps in the pipeline that are not included in the repo. They are:
+
+1. Fitting of hierarchical topic model (requires a machine w/ 64Gb RAM)
+2. Creation of article embeddings
+
+Step 1 is relatively easy to reproduce using the `arxiv_tokenised.json` tokenised abstracts generated while processing the data and the `smbtm` package that is already installed (for more infomation see [https://topsbm.github.io/](here)).
+
 
 
 --------

@@ -55,18 +55,32 @@ def topic_rep(ids, topic_mix, my_cats, topic_list, topic_category_map, thres=0.0
     topic_mix_ = topic_mix.copy().assign(rel=lambda x: x.index.isin(ids))
 
     # Calculates share of papers in category with the rest
-    topic_presences = (
+    topic_grouped_rel = (
         topic_mix_[topic_list]
         .applymap(lambda x: x > thres)
         .groupby(topic_mix_["rel"])[topic_list]
-        .mean()
     )
+
+    topic_presences = topic_grouped_rel.mean()
+
+    # topic_presences = (
+    #     topic_mix_[topic_list]
+    #     .applymap(lambda x: x > thres)
+    #     .groupby(topic_mix_["rel"])[topic_list]
+    #     .mean()
+    # )
+
+    # topic_levels
 
     topic_comparison = (
         ((topic_presences.loc[True] / topic_presences.loc[False]) - 1)
         .sort_values(ascending=False)
         .reset_index(name="ratio")
     )
+
+    topic_levels_dict = topic_grouped_rel.sum().loc[True].to_dict()
+
+    topic_comparison["levels"] = topic_comparison["index"].map(topic_levels_dict)
 
     topic_comparison["cat"] = topic_comparison["index"].map(topic_category_map)
 
@@ -279,6 +293,96 @@ def save_highlights_table(
             outfile.writelines("\n")
             outfile.writelines(r"\\ \\")
             outfile.writelines("\n")
+
+
+def make_chart_topic_spec(
+    data, variable, value, topic_category_map, cats, topic_mix, ordered_cats=[]
+):
+    """Create df with specialisation in a category + plot
+    Args:
+        data: paper-org df we use to select paper ids with certain characteristics
+        variable: variable to filter on
+        value: value to filter on
+        topic_category_map: map between topics and their arxiv categories
+        cats: arxiv categories to focus on
+        topic_mix: topic_mix
+        ordered_cats: list with arXiv categories if we want to arrange the data
+            with preordered categories
+    """
+    logging.info(f"Extracting IDs {value}")
+    _ids = set(data.loc[data[variable] == value]["article_id"])
+
+    rep = (
+        topic_rep(_ids, topic_mix, cats, topic_mix.columns, topic_category_map)[0]
+        .dropna()
+        .reset_index(drop=True)
+    )
+
+    if len(ordered_cats) == 0:
+        ordered_cats = (
+            rep.groupby("cat_sel")["levels"]
+            .sum()
+            .sort_values(ascending=False)
+            .index.tolist()
+        )
+
+    logging.info("Plotting")
+    plot = strip_plot(rep, ordered_cats, value)
+
+    return plot
+
+
+def strip_plot(df, ordered_cats, name):
+    """Make a strip plot
+    comparing topics in different categories
+    """
+    stripplot = (
+        alt.Chart(df)
+        .mark_circle(size=14, stroke="grey", strokeWidth=0.5)
+        .encode(
+            x=alt.X(
+                "jitter:Q",
+                title=None,
+                axis=alt.Axis(values=[0], ticks=True, grid=False, labels=False),
+                scale=alt.Scale(),
+            ),
+            y=alt.Y("ratio:Q", title="Specialisation"),
+            tooltip=["index"],
+            size=alt.Size(
+                "levels",
+                title=["Number", "of papers"],
+                # scale=alt.Scale(type='log')
+            ),
+            color=alt.Color(
+                "cat_sel:N", legend=None, scale=alt.Scale(scheme="tableau10")
+            ),
+            column=alt.Column(
+                "cat_sel:N",
+                title="arXiv category",
+                sort=ordered_cats,
+                header=alt.Header(
+                    labelFontSize=12,
+                    labelAngle=270,
+                    titleOrient="top",
+                    labelOrient="bottom",
+                    labelAlign="center",
+                    labelPadding=25,
+                ),
+            ),
+        )
+        .transform_calculate(
+            # Generate Gaussian jitter with a Box-Muller transform
+            jitter="sqrt(-2*log(random()))*cos(2*PI*random())"
+        )
+        #         .transform_filter(
+        #             alt.datum.levels > 0)
+        .configure_facet(spacing=0)
+        .configure_view(stroke=None)
+        .configure_axis(labelFontSize=12, titleFontSize=12)
+        .properties(title=name, width=10, height=200)
+    )
+
+    return stripplot
 
 
 def main():

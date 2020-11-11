@@ -49,29 +49,34 @@ def make_network_from_doc_term_matrix(mat, threshold, id_var):
 
     return net
 
+
 def make_co_network(papers, topic_mix, topic_category_map, year_list, threshold=0.1):
     """Extract co-occurrence network"""
 
     papers_sel = set(papers.loc[papers["year"].isin(year_list)]["article_id"])
-    topic_mix_sel = topic_mix.loc[topic_mix['article_id'].isin(papers_sel)]
+    topic_mix_sel = topic_mix.loc[topic_mix["article_id"].isin(papers_sel)]
 
     # Extract the network
     net = make_network_from_doc_term_matrix(
-        topic_mix_sel, 
-        threshold, id_var="article_id"
+        topic_mix_sel, threshold, id_var="article_id"
     )
 
     nx.set_node_attributes(net, topic_category_map, "category")
 
     # Create size lookup
-    size_lookup = topic_mix_sel.set_index(
-                        'article_id').applymap(
-                        lambda x: x > 0.05).sum().to_dict()
+    size_lookup = (
+        topic_mix_sel.set_index("article_id")
+        .applymap(lambda x: x > 0.05)
+        .sum()
+        .to_dict()
+    )
 
     return net, size_lookup
 
 
-def plot_network(net, size_distr, cat_list, palette="Accent"):
+def plot_network(net, size_distr, cat_list, 
+                 arxiv_cat_lookup,
+                 palette="Accent"):
     """Plot co-occurrence network"""
 
     pal = cm.get_cmap(palette)

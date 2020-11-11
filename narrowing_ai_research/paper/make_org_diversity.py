@@ -163,7 +163,3 @@ def make_org_diversity():
     logging.info("Saving data")
     org_div_df.to_csv(f"{project_dir}/data/processed/org_diversity.csv", index=False)
 
-
-if __name__ == "__main__":
-    pd.options.mode.chained_assignment = None
-    make_org_diversity()

@@ -27,7 +27,7 @@ def read_process_data():
     topic_mix = read_topic_mix()
     topic_mix.set_index("article_id", inplace=True)
     vectors = read_vectors().pivot_table(
-        index='article_id',columns='dimension',values='value'
+        index="article_id", columns="dimension", values="value"
     )
 
     return papers, papers_orgs, topic_mix, vectors
@@ -106,6 +106,7 @@ def make_combined_tsne_df(
     tsne_df = tsne_combi.dropna(axis=0, subset=["org_type"])
 
     return tsne_df
+
 
 def make_tsne_df(orgs, period, vectors, papers, papers_orgs, org_name_type_lookup):
     """Returns a TSNE df ready to visualise"""
@@ -225,6 +226,7 @@ def main():
 
     logging.info("Visualising Tsne")
     tsne = visualise_tsne(combi_df, save=True)
+
 
 if __name__ == "__main__":
     driv = altair_visualisation_setup()
