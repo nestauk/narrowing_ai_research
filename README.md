@@ -17,7 +17,7 @@ Run `make fetch`.
 
 This fetches data from the following sources:
 
-* figshare [link to FigShare project](https://figshare.com/account/home#/projects/91427):
+* [Figshare](https://figshare.com/account/home#/projects/91427):
   * rXiv data (papers, institutions and categories)
   * topics
   * abstract vectors
