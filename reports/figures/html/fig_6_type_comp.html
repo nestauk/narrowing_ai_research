@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "point", "filled": true}, "encoding": {"color": {"type": "nominal", "field": "category"}, "shape": {"type": "nominal", "field": "category"}, "x": {"type": "quantitative", "field": "value", "title": "% activity"}, "y": {"type": "nominal", "field": "org_type", "sort": {"field": "value", "op": "sum", "order": "descending"}, "title": ["Type of", "organisation"]}}}, {"mark": {"type": "line", "stroke": "grey", "strokeDash": [1, 1], "strokeWidth": 1}, "encoding": {"detail": {"type": "nominal", "field": "org_type"}, "x": {"type": "quantitative", "field": "value", "title": "% activity"}, "y": {"type": "nominal", "field": "org_type", "sort": {"field": "value", "op": "sum", "order": "descending"}, "title": ["Type of", "organisation"]}}}], "data": {"name": "data-61228471ad6a2c8a20d7cb8a61919a8c"}, "height": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-61228471ad6a2c8a20d7cb8a61919a8c": [{"org_type": "Archive", "is_ai": false, "value": 0.17770225777188353, "category": "Not AI"}, {"org_type": "Company", "is_ai": false, "value": 1.6047540764686108, "category": "Not AI"}, {"org_type": "Education", "is_ai": false, "value": 78.8652658626549, "category": "Not AI"}, {"org_type": "Facility", "is_ai": false, "value": 9.257877795736803, "category": "Not AI"}, {"org_type": "Government", "is_ai": false, "value": 5.810159282744139, "category": "Not AI"}, {"org_type": "Healthcare", "is_ai": false, "value": 0.623684731604662, "category": "Not AI"}, {"org_type": "Nonprofit", "is_ai": false, "value": 3.213330202016016, "category": "Not AI"}, {"org_type": "Other", "is_ai": false, "value": 0.4472257910029886, "category": "Not AI"}, {"org_type": "Archive", "is_ai": true, "value": 0.024193903136409626, "category": "AI"}, {"org_type": "Company", "is_ai": true, "value": 9.761140192671446, "category": "AI"}, {"org_type": "Education", "is_ai": true, "value": 81.1232569392513, "category": "AI"}, {"org_type": "Facility", "is_ai": true, "value": 3.444332028328861, "category": "AI"}, {"org_type": "Government", "is_ai": true, "value": 3.097919324330269, "category": "AI"}, {"org_type": "Healthcare", "is_ai": true, "value": 0.34641270399859236, "category": "AI"}, {"org_type": "Nonprofit", "is_ai": true, "value": 1.820041349579906, "category": "AI"}, {"org_type": "Other", "is_ai": true, "value": 0.38270355870320677, "category": "AI"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

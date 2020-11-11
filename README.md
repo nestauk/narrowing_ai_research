@@ -47,7 +47,7 @@ To save space, processed files in `data/raw` are removed.
 
 ### Analysing the data
 
-Run `make paper`
+Run the scripts in `narrowing_ai_research/paper` to reproduce sections in the paper.
 
 This:
 * Reproduces all results in the paper including

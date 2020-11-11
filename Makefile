@@ -52,11 +52,13 @@ requirements: test_environment
 ## Fetch data and sync raw to s3
 fetch:
 	$(PYTHON_INTERPRETER) narrowing_ai_research/fetch_data.py
-	make sync_data_to_s3
+	#make sync_data_to_s3
 
 ## Sync raw from s3 and make Dataset
-data: sync_data_from_s3
+data: 
+	#sync_data_from_s3
 	$(PYTHON_INTERPRETER) narrowing_ai_research/make_dataset.py
+
 
 ## Delete all compiled Python files
 clean:

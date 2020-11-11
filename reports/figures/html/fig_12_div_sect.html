@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-c645572f77aa52bf0270a940e0080dd1"}, "mark": {"type": "bar", "color": "red", "opacity": 0.7, "stroke": "grey"}, "encoding": {"column": {"type": "nominal", "field": "metric", "sort": ["balance", "weitzman", "rao_stirling"], "title": "Metric"}, "row": {"type": "nominal", "field": "parametre_set", "title": "Parametre set"}, "x": {"type": "nominal", "field": "category", "sort": ["Company", "Education"], "title": "Category"}, "y": {"type": "quantitative", "field": "score", "scale": {"zero": false}, "title": "Score"}}, "height": 75, "resolve": {"scale": {"y": "independent"}}, "width": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-c645572f77aa52bf0270a940e0080dd1": [{"category": "Company", "metric": "balance", "score": 0.9897952756310385, "parametres": "balance_hh_binary_0.1_all", "parametre_set": "Parametre Set 0"}, {"category": "Company", "metric": "balance", "score": 0.9947517536596416, "parametres": "balance_hh_max_None_all", "parametre_set": "Parametre Set 1"}, {"category": "Company", "metric": "balance", "score": 5.07812828342899, "parametres": "balance_entropy_binary_0.1_all", "parametre_set": "Parametre Set 2"}, {"category": "Company", "metric": "weitzman", "score": 452.22428846838807, "parametres": "weitzman_cosine_all", "parametre_set": "Parametre Set 0"}, {"category": "Company", "metric": "weitzman", "score": 55.37848473738525, "parametres": "weitzman_chebyshev_all", "parametre_set": "Parametre Set 1"}, {"category": "Company", "metric": "weitzman", "score": 530.8702627977159, "parametres": "weitzman_jaccard_all", "parametre_set": "Parametre Set 2"}, {"category": "Company", "metric": "rao_stirling", "score": 0.4857445628712781, "parametres": "rao_stirling_binary_cosine_0.1_all_internal_internal", "parametre_set": "Parametre Set 0"}, {"category": "Company", "metric": "rao_stirling", "score": 0.49641295468943464, "parametres": "rao_stirling_binary_correlation_0.1_all_internal_internal", "parametre_set": "Parametre Set 1"}, {"category": "Company", "metric": "rao_stirling", "score": 0.4862656182883495, "parametres": "rao_stirling_max_cosine_None_all_internal_internal", "parametre_set": "Parametre Set 2"}, {"category": "Academic", "metric": "balance", "score": 0.9943041680124443, "parametres": "balance_hh_binary_0.1_all", "parametre_set": "Parametre Set 0"}, {"category": "Academic", "metric": "balance", "score": 0.9963027093826585, "parametres": "balance_hh_max_None_all", "parametre_set": "Parametre Set 1"}, {"category": "Academic", "metric": "balance", "score": 5.476459555399361, "parametres": "balance_entropy_binary_0.1_all", "parametre_set": "Parametre Set 2"}, {"category": "Academic", "metric": "weitzman", "score": 465.08795192183277, "parametres": "weitzman_cosine_all", "parametre_set": "Parametre Set 0"}, {"category": "Academic", "metric": "weitzman", "score": 81.82533814297494, "parametres": "weitzman_chebyshev_all", "parametre_set": "Parametre Set 1"}, {"category": "Academic", "metric": "weitzman", "score": 534.4445253947583, "parametres": "weitzman_jaccard_all", "parametre_set": "Parametre Set 2"}, {"category": "Academic", "metric": "rao_stirling", "score": 0.4899791368542119, "parametres": "rao_stirling_binary_cosine_0.1_all_internal_internal", "parametre_set": "Parametre Set 0"}, {"category": "Academic", "metric": "rao_stirling", "score": 0.498460467983295, "parametres": "rao_stirling_binary_correlation_0.1_all_internal_internal", "parametre_set": "Parametre Set 1"}, {"category": "Academic", "metric": "rao_stirling", "score": 0.4888608102716136, "parametres": "rao_stirling_max_cosine_None_all_internal_internal", "parametre_set": "Parametre Set 2"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
