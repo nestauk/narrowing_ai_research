@@ -1,7 +1,7 @@
 A Narrowing of AI research?
 ==============================
 
-Code for the Narrowing of AI research paper ([arXiv link](https://arxiv.org/abs/2009.10385))
+Code for the Narrowing of AI research paper ([arXiv link](https://arxiv.org/abs/2009.10385)) where we analyse the evolution of thematic diversity in the corpus of AI research in arXiv.
 
 ## Setup
 
@@ -25,9 +25,7 @@ This fetches data from the following sources:
 
 Data is stored in `data/raw`
 
-It also fetches a topic model trained on arXiv abstracts identified as AI
-
-The model is stored in `models/topsbm`
+It also fetches a topic model trained on arXiv abstracts identified as AI. The model is stored in `models/topsbm`
 
 ## Processing data
 
@@ -65,7 +63,7 @@ Note that there are two steps in the pipeline that are not included in the repo.
 1. Fitting of hierarchical topic model (requires a machine w/ 64Gb RAM)
 2. Creation of article embeddings
 
-Step 1 is relatively easy to reproduce using the `arxiv_tokenised.json` tokenised abstracts generated while processing the data and the `smbtm` package that is already installed (for more infomation see [https://topsbm.github.io/](here)).
+Step 1 is relatively easy to reproduce using the `arxiv_tokenised.json` tokenised abstracts generated while processing the data and the `smbtm` package that is already installed (for more infomation see [here](https://topsbm.github.io/)).
 
 
 
