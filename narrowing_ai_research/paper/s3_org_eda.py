@@ -289,9 +289,10 @@ def main():
     type_evol = make_chart_type_evol(porgs, save=True)
 
     logging.info("Comparing company activities")
-    comp_trends = make_chart_company_activity(porgs, papers, save=False)
+    comp_trends = make_chart_company_activity(porgs, papers, save=True)
 
 
 if __name__ == "__main__":
     driv = altair_visualisation_setup()
+    alt.data_transformers.disable_max_rows()
     main()

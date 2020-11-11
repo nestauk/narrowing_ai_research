@@ -224,7 +224,7 @@ def make_regression_table(
                     org_vals.columns = ["beta", "lower", "upper"]
                     org_coeffs["_".join([k, str(k2)])] = org_vals
 
-                    tables.append(results_series)
+                tables.append(results_series)
 
     reg_results_table = pd.concat(tables, axis=1)
 
