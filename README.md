@@ -1,7 +1,7 @@
 A Narrowing of AI research?
 ==============================
 
-Code for the Narrowing of AI research paper ([https://arxiv.org/abs/2009.10385](arXiv link))
+Code for the Narrowing of AI research paper ([arXiv link](https://arxiv.org/abs/2009.10385))
 
 ## Setup
 
@@ -17,7 +17,7 @@ Run `make fetch`.
 
 This fetches data from the following sources:
 
-* figshare [https://figshare.com/account/home#/projects/91427](link to FigShare project):
+* figshare [link to FigShare project](https://figshare.com/account/home#/projects/91427):
   * rXiv data (papers, institutions and categories)
   * topics
   * abstract vectors
