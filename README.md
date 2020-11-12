@@ -17,7 +17,7 @@ Run `make fetch`.
 
 This fetches data from the following sources:
 
-* [Figshare](https://figshare.com/account/home#/projects/91427):
+* [Figshare](https://github.com/nestauk/narrowing_ai_research/data/sources.md):
   * rXiv data (papers, institutions and categories)
   * topics
   * abstract vectors
