@@ -22,6 +22,7 @@ dependencies:
   - seaborn
   - statsmodels
   - tomotopy
+  - ratelim
   #- gcc_linux-64
   # Put any conda dependencies here
 
