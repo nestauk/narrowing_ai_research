@@ -21,6 +21,7 @@ dependencies:
   - networkx
   - seaborn
   - statsmodels
+  - tomotopy
   #- gcc_linux-64
   # Put any conda dependencies here
 
