@@ -39,7 +39,7 @@ def estimate_balance(data, params):
                 (only relevant when we are using the binary method)
     """
     method = params["method"]
-    if method is "binary":
+    if method == "binary":
         threshold = params["threshold"]
     div_metric = params["div_metric"]
     sample = params["sample"]
@@ -51,7 +51,7 @@ def estimate_balance(data, params):
 
     # If the method is max we allocate each paper t
     # o its top topic and analyse their distributions
-    if method is "max":
+    if method == "max":
         distr = data.idxmax(axis=1).value_counts()
         if div_metric == "hh":
             hh = hh_index(distr)
