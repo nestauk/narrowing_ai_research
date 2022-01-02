@@ -1,18 +1,22 @@
 import pandas as pd
 import json
 import logging
+import pickle
+from itertools import chain
 import narrowing_ai_research
 
 project_dir = narrowing_ai_research.project_dir
 
+CORE_AI_CATS = ["cs.AI", "cs.NE", "cs.LG", "stat.ML"]
 
-def read_papers():
+
+def read_papers(keep_vars=["article_id", "date", "is_ai"]):
     logging.info("Reading papers")
     papers = pd.read_csv(
         f"{project_dir}/data/processed/arxiv_articles.csv",
         dtype={"article_id": str},
         parse_dates=["date"],
-        usecols=["article_id", "date", "is_ai"],
+        usecols=keep_vars,
     )
     papers["year"] = [x.year for x in papers["date"]]
     return papers
@@ -134,3 +138,23 @@ def read_vectors():
     logging.info("Reading vectors")
     v = pd.read_csv(f"{project_dir}/data/raw/ai_vectors.csv")
     return v
+
+
+def get_ai_ids():
+
+    with open(f"{project_dir}/data/interim/find_ai_outputs.p", "rb") as infile:
+        expanded_ids = set(chain(*[vals for vals in pickle.load(infile)[0].values()]))
+
+    paper_cats = read_arxiv_categories()
+
+    core_ids = set(
+        paper_cats.loc[paper_cats["category_id"].isin(CORE_AI_CATS)]["article_id"]
+    )
+
+    return expanded_ids | core_ids
+
+
+def read_tokenised():
+
+    with open(f"{project_dir}/data/interim/arxiv_tokenised.json", "r") as infile:
+        return json.load(infile)
