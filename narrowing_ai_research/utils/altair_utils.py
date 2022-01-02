@@ -11,10 +11,10 @@ project_dir = narrowing_ai_research.project_dir
 fig_path = f"{project_dir}/reports/figures"
 
 # Checks if the right paths exist and if not creates them when imported
-if os.path.exists(f"{fig_path}/png") == False:
+if os.path.exists(f"{fig_path}/png") is False:
     os.mkdir(f"{fig_path}/png")
 
-if os.path.exists(f"{fig_path}/html") == False:
+if os.path.exists(f"{fig_path}/html") is False:
     os.mkdir(f"{fig_path}/html")
 
 
