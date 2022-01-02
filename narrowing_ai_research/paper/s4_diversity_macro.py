@@ -8,13 +8,7 @@ from scipy.stats import zscore
 
 from narrowing_ai_research.utils.read_utils import (
     read_papers,
-    read_papers_orgs,
     read_topic_mix,
-    read_topic_category_map,
-    read_arxiv_cat_lookup,
-)
-from narrowing_ai_research.paper.s3_org_eda import (
-    paper_orgs_processing,
 )
 from narrowing_ai_research.utils.altair_utils import (
     altair_visualisation_setup,
