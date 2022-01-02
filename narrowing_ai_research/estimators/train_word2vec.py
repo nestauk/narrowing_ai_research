@@ -25,7 +25,7 @@ def train_word2vec():
         tok = list(arxiv_tokenised.values())
 
         logging.info("Training model")
-        ft = FastText(tok, min_count=min_count, word_ngrams=0)
+        ft = FastText(tok, min_count=min_count, word_ngrams=1)
 
         # Save model
         with open(f"{project_dir}/models/word2vec.p", "wb") as outfile:

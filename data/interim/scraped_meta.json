@@ -1,0 +1,14 @@
+{
+  "DeepMind": {
+    "institute_country": "United Kingdom",
+    "org_type": "Company",
+    "lat": 51.5332,
+    "lon": 0.1262
+  },
+  "OpenAI": {
+    "institute_country": "United States",
+    "org_type": "Nonprofit",
+    "lon": 122.4148,
+    "lat": 37.7599
+  }
+}

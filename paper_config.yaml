@@ -24,7 +24,7 @@ section_4:
         sample: all
       - distance: chebyshev
         sample: all
-      - distance: jaccard
+      - distance: cityblock
         sample: all
     rao_stirling: 
       - method: binary

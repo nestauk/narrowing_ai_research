@@ -21,13 +21,15 @@ dependencies:
   - networkx
   - seaborn
   - statsmodels
+  - tomotopy
+  - ratelim
   #- gcc_linux-64
   # Put any conda dependencies here
 
   - pip:
     # Put any pip dependencies here (and no conda ones anywhere below)
-    - git+ssh://git@github.com/nestauk/data_getters.git
-    - git+ssh://git@github.com/nestauk/nesta.git
+    #- git+ssh://git@github.com/nestauk/data_getters.git
+    #- git+ssh://git@github.com/nestauk/nesta.git
     - python-louvain
     - altair-saver
     - webdriver_manager
