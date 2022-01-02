@@ -86,7 +86,10 @@ def paper_orgs_processing(paper_orgs, papers):
 
     logging.info("Clean institute names")
 
-    p["org_name"] = p["institute_name"].apply(lambda x: x.split("(")[0].strip())
+    p["org_name"] = [r[
+            'institute_name'].split("(")[0].strip() if r['org_type']=='Company'
+            else r['institute_name'] for rid,r in p.iterrows()]
+    #p["institute_name"].apply(lambda x: x.split("(")[0].strip())
 
     logging.info("Drop duplicate institute - organisation pairs")
     # Enforce one paper - institute pair
